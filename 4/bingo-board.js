@@ -5,7 +5,8 @@ class Cell {
   }
 
   toString() {
-    return this.value < 10 ? ` ${this.value}` : `${this.value}`
+    const base = this.value < 10 ? ` ${this.value}` : `${this.value}`
+    return this.marked ? base + '*' : base
   }
 }
 

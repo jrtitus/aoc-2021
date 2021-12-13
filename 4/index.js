@@ -39,12 +39,12 @@ file.on('close', () => {
   for (const n of calledNumbers.split(',')) {
     const winningBoard = gm.callNumber(n)
     if (winningBoard) {
-      console.log(`The winning board is board #${winningBoard.id}:`)
+      console.log(`The losing board is board #${winningBoard.id}:`)
       winningBoard.print()
       console.log(
-        `The winning score is: ${
-          winningBoard.sumOfUnmarked * gm.lastCalledNumber
-        }`
+        `The losing score is ${winningBoard.sumOfUnmarked} * ${
+          gm.lastCalledNumber
+        } = ${winningBoard.sumOfUnmarked * gm.lastCalledNumber}`
       )
       break
     }
