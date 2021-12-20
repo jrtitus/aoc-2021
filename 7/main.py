@@ -1,3 +1,11 @@
+def sumOf(val):
+    sum = 0
+    for x in range(0, val + 1):
+        sum += x
+
+    return sum
+
+
 with open("input.txt") as f:
     content = f.read()
 
@@ -16,7 +24,7 @@ cost = []
 for pos in range(0, maxPos):
     sum = 0
     for crab in positions:
-        sum += abs(crab - pos)
+        sum += sumOf(abs(crab - pos))
 
     cost.append(sum)
 
