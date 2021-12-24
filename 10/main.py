@@ -1,7 +1,14 @@
+from math import floor
+from typing import List
+
 scores = {
+    "(": 1,
     ")": 3,
+    "[": 2,
     "]": 57,
+    "{": 3,
     "}": 1197,
+    "<": 4,
     ">": 25137
 }
 
@@ -14,12 +21,23 @@ def isMatching(s1, s2):
     return (s1 == "[" and s2 == "]") or (s1 == "<" and s2 == ">") or (s1 == "{" and s2 == "}") or (s1 == "(" and s2 == ")")
 
 
+def calculateCompletionScore(stack: List):
+    score = 0
+    stack.reverse()
+    for symbol in stack:
+        score *= 5
+        score += scores[symbol]
+
+    return score
+
+
 if __name__ == "__main__":
     with open("input.txt") as f:
         lines = f.readlines()
 
-    validLines = []
     errorScore = 0
+    completionScore = 0
+    completionScores = []
 
     for line in lines:
         symbols = list(line.splitlines()[0])
@@ -36,8 +54,13 @@ if __name__ == "__main__":
                 corruptSymbol = s
                 break
         if not corrupted:
-            validLines.append(symbols)
+            completionScores.append(
+                calculateCompletionScore(openingStack))
         else:
             errorScore += scores[corruptSymbol]
 
-    print(f"Final score is {errorScore}")
+    completionScores.sort()
+
+    print(f"Final corruption score is {errorScore}")
+    print(
+        f"Median completion score is {completionScores[floor(len(completionScores) / 2)]}")
